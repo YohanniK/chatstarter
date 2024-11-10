@@ -16,14 +16,14 @@ http.route({
     }
     switch (body.type) {
       case "user.created":
-        await ctx.runMutation(internal.user.upsert, {
+        await ctx.runMutation(internal.functions.user.upsert, {
           username: body.data.username!,
           image: body.data.image_url,
           clerkId: body.data.id,
         });
         break;
       case "user.updated":
-        await ctx.runMutation(internal.user.upsert, {
+        await ctx.runMutation(internal.functions.user.upsert, {
           username: body.data.username!,
           image: body.data.image_url,
           clerkId: body.data.id,
@@ -31,7 +31,7 @@ http.route({
         break;
       case "user.deleted":
         if (body.data.id) {
-          await ctx.runMutation(internal.user.remove, {
+          await ctx.runMutation(internal.functions.user.remove, {
             clerkId: body.data.id,
           });
         }
